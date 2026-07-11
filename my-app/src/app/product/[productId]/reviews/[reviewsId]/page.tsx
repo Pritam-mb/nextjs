@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation"
-export default async function productReview({ params }: {
+export default async function ProductReview({ params }: {
     params:
     Promise<{ productId: string, reviewsId: string }>
 }) {
