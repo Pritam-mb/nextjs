@@ -1,11 +1,22 @@
-import { notFound } from "next/navigation"
+import { error } from "console"
+import { notFound, redirect } from "next/navigation"
+// import {user}
+function RandomInt(count: number) {
+    return Math.floor(Math.random() * count)
+}
 export default async function ProductReview({ params }: {
     params:
     Promise<{ productId: string, reviewsId: string }>
 }) {
+    const random = RandomInt(2)
+    if (random === 1) {
+        throw new Error("internal server error")
+    }
+    // const router = useRouter();
     const { productId, reviewsId } = await params;
     if (parseInt(reviewsId) > 1000) {
-        notFound();
+        // notFound();
+        redirect('/product')
     }
     return (
         <>
