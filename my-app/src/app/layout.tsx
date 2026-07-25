@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import { ErrorWrapper } from "./error-wrapper"
 export const metadata: Metadata = {
   title: {
     default: "this is default title", //the page have no metadata use this title as default
@@ -21,7 +22,10 @@ export default function RootLayout({
         }}>
           <h1>this is header</h1>
         </header>
-        {children}
+        <ErrorWrapper>
+
+          {children}
+        </ErrorWrapper>
         <footer style={{
           backgroundColor: "lightblue"
         }}>

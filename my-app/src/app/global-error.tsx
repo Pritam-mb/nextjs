@@ -1,6 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 
-import "./globals.css";
+import "./global.css";
 
 export default function GlobalError() {
     return (
