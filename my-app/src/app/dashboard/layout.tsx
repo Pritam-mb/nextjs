@@ -13,7 +13,7 @@ export default function DashboardLayout({
         <>
             <h1>dashboard layout</h1>
             {children}
-            <div>
+            <div >
                 {users}
                 {revenue}
                 {notification}
