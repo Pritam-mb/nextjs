@@ -8,4 +8,4 @@ export default function Achivednotification() {
             <Link href="/dashboard">default</Link>
         </Card>
     )
-}   
+}
