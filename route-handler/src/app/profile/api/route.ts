@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     cookiestore.set("theme", "dark")
     console.log(cookiestore.get("theme"))
 
-    return NextResponse.json(`<h1>profile data</h1>`, {
+    return NextResponse.json("<h1>profile data</h1>", {
         headers: {
             "Content-Type": "text/html",
             "Set-Cookie": "name=pritam"
