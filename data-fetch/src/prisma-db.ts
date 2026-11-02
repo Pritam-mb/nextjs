@@ -13,7 +13,10 @@ const seedProducts = async () => {
     });
   }
 };
-
+export async function fetchproducts ()  {
+    const response = await prisma.product.findMany();
+    return response;
+  }
 // Run seed if needed
 seedProducts();
 

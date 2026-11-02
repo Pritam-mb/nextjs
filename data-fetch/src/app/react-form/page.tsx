@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-
+import { redirect } from 'next/navigation';
+import { addProduct } from '@/src/prisma-db';
 export default function AddProductPage() {
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
@@ -13,37 +14,46 @@ export default function AddProductPage() {
     e.preventDefault();
     setLoading(true);
     setMessage(null);
-
-    try {
-      const response = await fetch('/react-form/api', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          price,
-          description,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to create product');
-      }
-
-      const data = await response.json();
-      setMessage({ type: 'success', text: `Product "${data.title}" added successfully!` });
-
-      // Reset form fields
-      setTitle('');
-      setPrice('');
-      setDescription('');
-    } catch (err: unknown) {
-      const errorMsg = err instanceof Error ? err.message : 'Something went wrong';
-      setMessage({ type: 'error', text: errorMsg });
-    } finally {
-      setLoading(false);
+    async function createProduct(formData: FormData) { //now we can directly talk with th eserve
+        "use server";
+         const title = formData.get("title") as string;
+         const price = formData.get("price") as string;
+         const description = formData.get("description") as string;
+         addProduct(title, parseInt(price, 10), description);
+         redirect("/react-form");
     }
+    
+
+    // try {
+    //   const response = await fetch('/react-form/api', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       title,
+    //       price,
+    //       description,
+    //     }),
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error('Failed to create product');
+    //   }
+
+    //   const data = await response.json();
+    //   setMessage({ type: 'success', text: `Product "${data.title}" added successfully!` });
+
+    //   // Reset form fields
+    //   setTitle('');
+    //   setPrice('');
+    //   setDescription('');
+    // } catch (err: unknown) {
+    //   const errorMsg = err instanceof Error ? err.message : 'Something went wrong';
+    //   setMessage({ type: 'error', text: errorMsg });
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
