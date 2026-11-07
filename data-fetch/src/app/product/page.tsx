@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-type Product = {
+import {removeProduct} from "@/src/actions/product";
+export type Product = {
   id: number;
   title: string;
   price: number;
@@ -120,7 +120,27 @@ export default function ProductsPage() {
                 </p>
               )}
             </div>
+            <div className="mt-4 flex gap-2">
+      <button
+   >
+    <Link href={`/product/${product.id}`} className="text-blue-600 hover:underline">
+    
+        edit
+    </Link>
+      </button>
+      <form action={removeProduct.bind(null, product.id)}>
+
+      <button type='submit' className="text-red-600 hover:underline"> 
+   
+    
+        delete
+
+      </button>
+      </form>
+      </div>
           </div>
+
+
         ))}
       </div>
     </div>
