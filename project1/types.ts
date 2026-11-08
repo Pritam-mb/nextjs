@@ -270,7 +270,7 @@ export interface DataTableColumn<T> {
 export interface DataTableProps<T> {
   columns: DataTableColumn<T>[];
   data: T[];
-  rowKey: (row: T, index: number) => React.Key;
+  rowKey?: (row: T, index: number) => React.Key;
   tableClassName?: string;
   headerClassName?: string;
   headerRowClassName?: string;

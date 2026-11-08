@@ -8,48 +8,19 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-export interface ColumnDef<T> {
-  header: string;
-  cellClassName?: string;
-  cell: (row: T, index: number) => React.ReactNode;
-}
-
-export interface DatatableProps<T> {
-  columns: ColumnDef<T>[];
-  data?: T[];
-  rowkey?: (row: T, index: number) => string | number;
-  tableClassName?: string;
-  headerCellClassName?: string;
-  headerRowClassName?: string;
-  bodyRowClassName?: string;
-  headerClassName?: string;
-  bodyCellClassName?: string;
-}
-
-export interface CoinData {
-  id: string;
-  rank: number;
-  name: string;
-  symbol: string;
-  image: string;
-  current_price: number;
-  price_change_percentage_24h: number;
-  total_volume: number;
-  market_cap: number;
-}
+import { DataTableColumn, DataTableProps } from '@/types';
 
 export const Datatable = <T,>({
   columns,
   data,
-  rowkey,
+  rowKey,
   tableClassName,
   headerClassName,
   headerCellClassName,
   headerRowClassName,
   bodyRowClassName,
   bodyCellClassName,
-}: DatatableProps<T>) => {
+}: DataTableProps<T>) => {
   return (
     <Table className={cn('custom-scrollbar', tableClassName)}>
       <TableHeader className={cn(headerClassName)}>
@@ -57,7 +28,11 @@ export const Datatable = <T,>({
           {columns?.map((column, index) => (
             <TableHead
               key={index}
-              className={cn('text-left bg-dark-400', headerCellClassName)}
+              className={cn(
+                'text-left bg-dark-400',
+                headerCellClassName,
+                column.headClassName
+              )}
             >
               {column.header}
             </TableHead>
@@ -67,7 +42,7 @@ export const Datatable = <T,>({
       <TableBody>
         {data && data.length > 0 ? (
           data.map((row, index) => {
-            const key = rowkey ? rowkey(row, index) : index;
+            const key = rowKey ? rowKey(row, index) : index;
             return (
               <TableRow
                 key={key}
